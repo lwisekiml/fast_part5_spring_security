@@ -28,6 +28,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // basic authentication
+        // BasicAuthenticationFilter를 사용하지 않을 것이라면 명시적으로 disable 시켜주는 것이 좋다.
+        // BasicAuthenticationFilter를 사용할 때는 반드시 https를 사용하도록 권장된다.
+//        http.httpBasic(); // basic authentication filter 활성화
         http.httpBasic().disable(); // basic authentication filter 비활성화
         // csrf
         http.csrf();
