@@ -34,7 +34,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.httpBasic().disable(); // basic authentication filter 비활성화
         // csrf
         http.csrf();
-        // remember-me
+        // remember-me (rememberMeAuthenticationFilter)
         http.rememberMe();
         // anonymous
         http.anonymous().principal("test"); // .principal(new User); 이런 식으로도 됨
@@ -43,11 +43,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 // /와 /home은 모두에게 허용
                 .antMatchers("/", "/home", "/signup").permitAll()
                 // hello 페이지는 USER 롤을 가진 유저에게만 허용
-                .antMatchers("/note").hasRole("USER")
-                .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers(HttpMethod.POST, "/notice").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/notice").hasRole("ADMIN")
-                .anyRequest().authenticated();
+                .antMatchers("/note").hasRole("USER") // 유저 권한인 경우만
+                .antMatchers("/admin").hasRole("ADMIN") //어드민 권한인 경우만
+                .antMatchers(HttpMethod.POST, "/notice").hasRole("ADMIN") //어드민 권한인 경우만
+                .antMatchers(HttpMethod.DELETE, "/notice").hasRole("ADMIN") //어드민 권한인 경우만
+                .anyRequest().authenticated(); // 인증 받은 사람만
         // login
         http.formLogin()
                 .loginPage("/login")
