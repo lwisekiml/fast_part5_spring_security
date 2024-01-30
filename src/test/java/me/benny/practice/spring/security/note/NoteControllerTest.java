@@ -46,7 +46,7 @@ class NoteControllerTest {
     }
 
     @Test
-    void getNote_인증없음() throws Exception {
+    void getNote_인증없음() throws Exception { // 로그인 페이지로 돌려보냄
         mockMvc.perform(get("/note"))
                 .andExpect(redirectedUrlPattern("**/login"))
                 .andExpect(status().is3xxRedirection());
@@ -55,9 +55,9 @@ class NoteControllerTest {
     @Test
     // WithUserDetails 로 테스트 하는 방법
     @WithUserDetails(
-            value = "user123", // userDetailsService를 통해 가져올 수 있는 유저
+            value = "user123", // userDetailsService를 통해 가져올 수 있는 유저(가져올 user의 username)
             userDetailsServiceBeanName = "userDetailsService", // UserDetailsService 구현체의 Bean
-            setupBefore = TestExecutionEvent.TEST_EXECUTION // 테스트 실행 직전에 유저를 가져온다.
+            setupBefore = TestExecutionEvent.TEST_EXECUTION // 테스트 실행 직전에 유저를 가져온다.(언제 유저가 세팅되는지 정함)
     )
     void getNote_인증있음() throws Exception {
         mockMvc.perform(

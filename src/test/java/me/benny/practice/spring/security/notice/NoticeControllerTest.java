@@ -34,14 +34,14 @@ class NoticeControllerTest {
     }
 
     @Test
-    void getNotice_인증없음() throws Exception {
+    void getNotice_인증없음() throws Exception { // 로그인 안된 상태로 공지사항으로 갈 경우
         mockMvc.perform(get("/notice"))
                 .andExpect(redirectedUrlPattern("**/login"))
                 .andExpect(status().is3xxRedirection());
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser // Mock(가짜) User 생성하고 Authentication을 만듬(여기서 유저는 org.springframework.security.core.userdetails.User를 말한다.)
     void getNotice_인증있음() throws Exception {
         mockMvc.perform(get("/notice"))
                 .andExpect(status().isOk())
