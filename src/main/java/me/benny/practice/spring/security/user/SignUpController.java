@@ -1,6 +1,8 @@
 package me.benny.practice.spring.security.user;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,7 +24,8 @@ public class SignUpController {
      */
     @GetMapping
     public String signup() {
-        return "signup";
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        return "signup"; // break point를 걸고  회원가입 화면에 접속하여 securityContext안에 principal, authorities 확인
     }
 
     @PostMapping

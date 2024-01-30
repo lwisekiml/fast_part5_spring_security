@@ -36,6 +36,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf();
         // remember-me
         http.rememberMe();
+        // anonymous
+        http.anonymous().principal("test"); // .principal(new User); 이런 식으로도 됨
         // authorization
         http.authorizeRequests()
                 // /와 /home은 모두에게 허용
